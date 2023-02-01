@@ -187,7 +187,7 @@ static TokenType checkKeyword(int start, int length,
     return TOKEN_IDENTIFIER;
 }
 
-static Token identifierType()
+static TokenType identifierType()
 {
     switch (scanner.start[0])
     {

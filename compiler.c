@@ -82,3 +82,8 @@ static void consume(TokenType type, const char *message)
     }
     errorAtCurrent(message);
 }
+
+static void emitByte(uint8_t byte)
+{
+    writeChunk(currentChunk(), byte, parser.previous.line);
+}

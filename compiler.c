@@ -82,21 +82,6 @@ static void errorAtCurrent(const char *message)
     errorAt(&parser.current, message);
 }
 
-bool compile(const char *source, Chunk *chunk)
-{
-    initScanner(source);
-    compilingChunk = chunk;
-
-    parser.hadError = false;
-    parser.panicMode = false;
-
-    advance();
-    expression();
-    consume(TOKEN_EOF, "Expect end of expression.");
-    endCompiler();
-    return !parser.hadError;
-}
-
 static void advance()
 {
     parser.previous = parser.current;
@@ -288,4 +273,19 @@ static ParseRule *getRule(TokenType type)
 static void expression()
 {
     parsePrecedence(PREC_ASSIGNMENT);
+}
+
+bool compile(const char *source, Chunk *chunk)
+{
+    initScanner(source);
+    compilingChunk = chunk;
+
+    parser.hadError = false;
+    parser.panicMode = false;
+
+    advance();
+    expression();
+    consume(TOKEN_EOF, "Expect end of expression.");
+    endCompiler();
+    return !parser.hadError;
 }
